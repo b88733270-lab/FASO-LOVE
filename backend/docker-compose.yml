@@ -1,0 +1,38 @@
+# FASO LOVE — environnement de développement local.
+# Démarrage : docker compose up --build
+# API : http://localhost:8000/docs
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: fasolove
+      POSTGRES_PASSWORD: fasolove
+      POSTGRES_DB: fasolove
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fasolove"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      ENV: dev
+      DATABASE_URL: postgresql+asyncpg://fasolove:fasolove@db:5432/fasolove
+      JWT_SECRET: dev-secret-a-changer-en-production-0123456789
+      SMS_PROVIDER: console
+      OTP_DEV_ECHO: "true"
+      CORS_ORIGINS: "*"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

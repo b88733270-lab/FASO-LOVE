@@ -69,6 +69,18 @@ async def main() -> None:
         check(r.status_code == 403 and "18" in r.json()["detail"],
               "mineur refusé (403, règle 18+)")
 
+        # Hygiène : supprime d'éventuelles identités E2E laissées par un
+        # précédent run interrompu (l'E2E doit être indéfiniment relançable).
+        for phone, age in (("+22676234567", 27), ("+22665342109", 29)):
+            try:
+                tokens = await register(c, phone, age)
+                r = await c.delete(
+                    f"{API}/users/me",
+                    headers={"Authorization": f"Bearer {tokens['access_token']}"},
+                )
+            except Exception:
+                pass  # compte absent : rien à purger
+
         print("— Inscription + profils + photos (2 utilisateurs E2E)")
         tok_a = (await register(c, "+22676234567", 27))["access_token"]
         tok_b = (await register(c, "+22665342109", 29))["access_token"]

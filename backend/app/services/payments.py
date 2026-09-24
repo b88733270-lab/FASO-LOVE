@@ -358,6 +358,17 @@ async def apply_payment_status(
 
     Retourne ("applied" | "ignored" | "duplicate", transaction).
     """
+    # Idempotence GLOBALE : un event_id n'est traité qu'une fois, quel que
+    # soit le référent ciblé. Empêche un agrégateur qui réémet un événement
+    # posé sur une autre transaction de violer l'unicité (500).
+    existing_event = await db.scalar(
+        select(PaymentTransaction).where(
+            PaymentTransaction.provider_event_id == event_id
+        )
+    )
+    if existing_event is not None:
+        return "duplicate", existing_event
+
     txn = await db.scalar(
         select(PaymentTransaction).where(PaymentTransaction.provider_ref == txn_ref)
     )

@@ -28,6 +28,8 @@ os.environ.setdefault("CORS_ORIGINS", "*")
 # Preview/demo : limites OTP assouplies (parcours répétés depuis la même IP).
 os.environ.setdefault("OTP_REQUEST_RATE_LIMIT", "120/minute")
 os.environ.setdefault("OTP_VERIFY_RATE_LIMIT", "120/minute")
+# Démo : pas de délai anti-renvoi OTP (parcours répétitifs).
+os.environ.setdefault("OTP_RESEND_COOLDOWN_SECONDS", "0")
 
 
 async def ensure_database() -> None:

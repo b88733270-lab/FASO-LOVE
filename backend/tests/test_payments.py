@@ -201,6 +201,49 @@ async def test_webhook_idempotent_et_rejeu(make_user, client, db_session):
     assert r.json()["result"] == "ignored"
 
 
+async def test_webhook_event_global_dedupe_sur_autre_transaction(
+    make_user, client, db_session
+):
+    """Régression : le MÊME event_id rejoué mais ciblant une AUTRE
+    transaction (réémission agrégateur) → 'duplicate', JAMAIS de
+    violation unique provider_event_id (500 IntegrityError)."""
+    _, _, h_a = await make_user(display_name="Dedup", gender="female")
+
+    # Première transaction : confirmation par webhook evt-X.
+    r = await client.post(
+        "/api/v1/subscriptions/checkout",
+        json={"plan_code": "premium_week", "provider": "mock"},
+        headers=h_a,
+    )
+    t1 = r.json()["transaction_id"]
+    txn1 = await db_session.get(PaymentTransaction, t1)
+    r = await client.post(
+        "/api/v1/payments/webhook/mock",
+        json={"txn_ref": txn1.provider_ref, "event_id": "evt-X", "status": "succeeded"},
+    )
+    assert r.json()["result"] == "applied"
+
+    # Nouvelle transaction, MÊME event_id réémis côté agrégateur.
+    r = await client.post(
+        "/api/v1/subscriptions/checkout",
+        json={"plan_code": "premium_week", "provider": "mock"},
+        headers=h_a,
+    )
+    t2 = r.json()["transaction_id"]
+    txn2 = await db_session.get(PaymentTransaction, t2)
+    assert t2 != t1
+    r = await client.post(
+        "/api/v1/payments/webhook/mock",
+        json={"txn_ref": txn2.provider_ref, "event_id": "evt-X", "status": "succeeded"},
+    )
+    assert r.status_code == 200
+    assert r.json()["result"] == "duplicate"
+    # La 2e transaction n'a pas été activée par un événement volé.
+    txn2 = await db_session.get(PaymentTransaction, t2)
+    assert txn2.status == "pending"
+    assert txn2.provider_event_id is None
+
+
 async def test_echec_simule_et_renouvellement_empile(make_user, client, db_session):
     _, _, h_a = await make_user(display_name="EchecEtRenouille", gender="female")
 

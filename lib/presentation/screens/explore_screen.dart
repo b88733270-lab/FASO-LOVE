@@ -1,27 +1,90 @@
-import 'package:dating_app/presentation/screens/message_screen.dart';
+import 'package:faso_love/core/constants/app_colors.dart';
+import 'package:faso_love/core/constants/assets_path.dart';
+import 'package:faso_love/core/network/api_client.dart';
+import 'package:faso_love/core/utils/helpers/profile_image.dart';
+import 'package:faso_love/data/models/users/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:dating_app/core/constants/app_colors.dart';
-import 'package:dating_app/data/models/users/user_model.dart';
 
+/// Onglet « Explorer » : grille de profils autour de l'utilisateur —
+/// données réelles (`GET /discover`), repli hors-ligne sur la maquette
+/// locale (aucune photo de personne réelle).
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
 
+  /// Charge la file via l'API ; repli maquette si le serveur est injoignable.
+  Future<List<User>> _charger() async {
+    try {
+      final liste = await ApiClient.instance.getList('/discover?limit=40');
+      final cartes = liste
+          .map((c) => User.fromDiscoverJson(c as Map<String, dynamic>))
+          .toList();
+      if (cartes.isNotEmpty) return cartes;
+    } catch (_) {
+      // API indisponible → démo hors-ligne.
+    }
+    return _generateMockUsers();
+  }
+
+  /// Like depuis la fiche : si l'autre a déjà liké → MATCH.
+  Future<void> _aimer(BuildContext context, User user) async {
+    try {
+      final reponse = await ApiClient.instance.postJson(
+        '/discover/react',
+        {'target_user_id': user.id, 'action': 'like'},
+      );
+      if (!context.mounted) return;
+      if (reponse['matched'] == true) {
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('🎉 C\'est un match !'),
+            content: Text(
+              '${user.name} vous aime aussi !\nRetrouvez votre conversation dans l\'onglet Matchs.',
+            ),
+            actions: [
+              FilledButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Super !'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${user.name} recevra votre like ❤️')),
+        );
+      }
+    } on ApiException catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<User> exploreUsers = _generateMockUsers();
+    return FutureBuilder<List<User>>(
+      future: _charger(),
+      builder: (context, snapshot) {
+        final exploreUsers = snapshot.data ?? const <User>[];
+        final chargement =
+            snapshot.connectionState != ConnectionState.done;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Explore Nearby'),
+        title: const Text('Explorer autour de moi'),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list),
+            tooltip: 'Filtres',
             onPressed: () => _showFilters(context),
           ),
         ],
       ),
-      body: exploreUsers.isEmpty
+      body: chargement
+          ? const Center(child: CircularProgressIndicator())
+          : exploreUsers.isEmpty
           ? _buildEmptyState()
           : CustomScrollView(
               physics: const BouncingScrollPhysics(),
@@ -45,70 +108,68 @@ class ExploreScreen extends StatelessWidget {
                 ),
               ],
             ),
+        );
+      },
     );
   }
 
+  /// Profils de démonstration (avatars génériques locaux, distances en km).
+  /// TODO(phase-3) : supprimer au profit des données API.
   List<User> _generateMockUsers() {
     return [
       User(
         id: '1',
-        name: 'Emma',
+        name: 'Kadiatou',
         age: 26,
-        photoUrl:
-            'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500',
-        bio: 'Digital Artist | Coffee Lover',
+        photoUrl: AssetsPath.avatar1,
+        bio: 'Couturière | Faso Dan Fani',
         distance: 2.5,
-        interests: ['Art', 'Coffee', 'Travel'],
+        interests: const ['Mode', 'Cuisine', 'Voyage'],
       ),
       User(
         id: '2',
-        name: 'James',
+        name: 'Idrissa',
         age: 29,
-        photoUrl:
-            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500',
-        bio: 'Software Engineer | Photographer',
+        photoUrl: AssetsPath.avatar2,
+        bio: 'Informaticien | Mélomane',
         distance: 3.1,
-        interests: ['Tech', 'Hiking', 'Photography'],
+        interests: const ['Tech', 'Football', 'Photo'],
       ),
       User(
         id: '3',
-        name: 'Sophia',
+        name: 'Mariam',
         age: 24,
-        photoUrl:
-            'https://images.unsplash.com/photo-1554151228-14d9def656e4?w=500',
-        bio: 'Medical Student | Yoga Instructor',
+        photoUrl: AssetsPath.avatar3,
+        bio: 'Étudiante en médecine | Danse',
         distance: 1.2,
-        interests: ['Medicine', 'Yoga', 'Reading'],
+        interests: const ['Lecture', 'Danse', 'Musique'],
       ),
       User(
         id: '4',
-        name: 'Michael',
+        name: 'Abdoulaye',
         age: 31,
-        photoUrl:
-            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500',
-        bio: 'Chef & Food Blogger',
+        photoUrl: AssetsPath.avatar4,
+        bio: 'Chef cuisinier | Voyageur',
         distance: 4.7,
-        interests: ['Cooking', 'Travel', 'Wine'],
+        interests: const ['Cuisine', 'Voyage', 'Cinéma'],
       ),
       User(
         id: '5',
-        name: 'Olivia',
+        name: 'Awa',
         age: 27,
-        photoUrl:
-            'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500',
-        bio: 'Yoga Instructor | Wellness Coach',
+        photoUrl: AssetsPath.avatar5,
+        bio: 'Coach sportive | Bien-être',
         distance: 0.8,
-        interests: ['Fitness', 'Meditation', 'Health'],
+        interests: const ['Sport', 'Nature', 'Santé'],
       ),
       User(
         id: '6',
-        name: 'William',
+        name: 'Moussa',
         age: 30,
-        photoUrl:
-            'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500',
-        bio: 'Entrepreneur | Travel Enthusiast',
+        photoUrl: AssetsPath.avatar6,
+        bio: 'Entrepreneur | Cinéphile',
         distance: 5.3,
-        interests: ['Business', 'Skiing', 'Cars'],
+        interests: const ['Cinéma', 'Théâtre', 'Langues'],
       ),
     ];
   }
@@ -126,8 +187,8 @@ class ExploreScreen extends StatelessWidget {
           children: [
             Hero(
               tag: 'explore-${user.id}',
-              child: Image.network(
-                user.photoUrl,
+              child: Image(
+                image: profileImageProvider(user.photoUrl),
                 fit: BoxFit.cover,
                 height: double.infinity,
                 width: double.infinity,
@@ -168,7 +229,7 @@ class ExploreScreen extends StatelessWidget {
                         size: 14, color: Colors.white),
                     const SizedBox(width: 4),
                     Text(
-                      '${user.distance} mi',
+                      '${user.distance.toStringAsFixed(1)} km',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -235,7 +296,7 @@ class ExploreScreen extends StatelessWidget {
                                   ),
                                   child: Text(
                                     interest,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
@@ -267,7 +328,7 @@ class ExploreScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'No profiles found',
+            'Aucun profil trouvé',
             style: TextStyle(
               fontSize: 20,
               color: Colors.grey[600],
@@ -278,7 +339,7 @@ class ExploreScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Text(
-              'Try adjusting your filters or check back later for new people in your area',
+              'Ajustez vos filtres ou revenez plus tard pour découvrir de nouveaux profils près de chez vous',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.grey[500],
@@ -287,7 +348,9 @@ class ExploreScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              // TODO(phase-3) : recharger la file depuis l'API.
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
               shape: RoundedRectangleBorder(
@@ -296,7 +359,7 @@ class ExploreScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
             child: const Text(
-              'Refresh',
+              'Actualiser',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -305,6 +368,8 @@ class ExploreScreen extends StatelessWidget {
     );
   }
 
+  /// Panneau de filtres — maquette visuelle uniquement.
+  /// TODO(phase-3) : filtres réels (âge, distance, centres d'intérêt).
   void _showFilters(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -322,7 +387,7 @@ class ExploreScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'Filters',
+                    'Filtres',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
@@ -344,16 +409,16 @@ class ExploreScreen extends StatelessWidget {
                             min: 1,
                             max: 100,
                             divisions: 99,
-                            label: '10 miles',
+                            label: '10 km',
                             onChanged: (value) {},
                           ),
                           const SizedBox(height: 8),
-                          const Text('Within 10 miles'),
+                          const Text('Dans un rayon de 10 km'),
                         ],
                       ),
                     ),
                     _buildFilterSection(
-                      title: 'Age Range',
+                      title: 'Tranche d’âge',
                       child: RangeSlider(
                         values: const RangeValues(18, 35),
                         min: 18,
@@ -364,19 +429,19 @@ class ExploreScreen extends StatelessWidget {
                       ),
                     ),
                     _buildFilterSection(
-                      title: 'Interests',
+                      title: 'Centres d’intérêt',
                       child: Wrap(
                         spacing: 8,
                         runSpacing: 8,
                         children: [
-                          'Art',
-                          'Music',
-                          'Sports',
-                          'Travel',
-                          'Food',
+                          'Cuisine',
+                          'Musique',
+                          'Football',
+                          'Voyage',
+                          'Danse',
                           'Tech',
-                          'Fitness',
-                          'Reading'
+                          'Sport',
+                          'Lecture'
                         ]
                             .map((interest) => FilterChip(
                                   label: Text(interest),
@@ -401,7 +466,7 @@ class ExploreScreen extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'Apply Filters',
+                    'Appliquer les filtres',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
@@ -433,6 +498,7 @@ class ExploreScreen extends StatelessWidget {
     );
   }
 
+  /// Fiche détaillée d'un profil (bottom sheet).
   void _showProfileDetail(BuildContext context, User user) {
     showModalBottomSheet(
       context: context,
@@ -456,8 +522,8 @@ class ExploreScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(20)),
-                          child: Image.network(
-                            user.photoUrl,
+                          child: Image(
+                            image: profileImageProvider(user.photoUrl),
                             width: double.infinity,
                             height: 400,
                             fit: BoxFit.cover,
@@ -481,7 +547,8 @@ class ExploreScreen extends StatelessWidget {
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.favorite_border),
-                                  onPressed: () {},
+                                  tooltip: 'Aimer',
+                                  onPressed: () => _aimer(context, user),
                                 ),
                               ],
                             ),
@@ -492,14 +559,14 @@ class ExploreScreen extends StatelessWidget {
                                     size: 16, color: Colors.grey),
                                 const SizedBox(width: 4),
                                 Text(
-                                  '${user.distance} miles away',
+                                  'À ${user.distance.toStringAsFixed(1)} km',
                                   style: const TextStyle(color: Colors.grey),
                                 ),
                               ],
                             ),
                             const SizedBox(height: 16),
                             const Text(
-                              'About',
+                              'À propos',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -512,7 +579,7 @@ class ExploreScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 16),
                             const Text(
-                              'Interests',
+                              'Centres d’intérêt',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -527,8 +594,8 @@ class ExploreScreen extends StatelessWidget {
                                         label: Text(interest),
                                         backgroundColor:
                                             AppColors.primary.withOpacity(0.1),
-                                        labelStyle:
-                                            TextStyle(color: AppColors.primary),
+                                        labelStyle: const TextStyle(
+                                            color: AppColors.primary),
                                       ))
                                   .toList(),
                             ),
@@ -548,13 +615,13 @@ class ExploreScreen extends StatelessWidget {
                         onPressed: () => Navigator.pop(context),
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          side: BorderSide(color: AppColors.primary),
+                          side: const BorderSide(color: AppColors.primary),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: Text(
-                          'Close',
+                        child: const Text(
+                          'Fermer',
                           style: TextStyle(color: AppColors.primary),
                         ),
                       ),
@@ -563,13 +630,8 @@ class ExploreScreen extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context); // Close the profile sheet
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MessageScreen(user: user),
-                            ),
-                          );
+                          Navigator.pop(context); // ferme la fiche
+                          _aimer(context, user);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
@@ -579,7 +641,7 @@ class ExploreScreen extends StatelessWidget {
                           ),
                         ),
                         child: const Text(
-                          'Message',
+                          'Aimer ❤️',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

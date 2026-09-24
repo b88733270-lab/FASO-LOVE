@@ -1,4 +1,4 @@
-package com.example.dating_app
+package bf.fasolove.app
 
 import io.flutter.embedding.android.FlutterActivity
 

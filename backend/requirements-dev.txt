@@ -1,0 +1,7 @@
+# FASO LOVE API — dépendances de développement / tests
+-r requirements.txt
+pytest==8.4.1
+pytest-asyncio==0.26.0
+httpx==0.28.1
+aiosqlite==0.21.0
+pip-audit==2.9.0

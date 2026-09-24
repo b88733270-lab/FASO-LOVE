@@ -1,166 +1,234 @@
-```markdown
-# 💖 SparkMatch - The Modern Dating Experience 
+# ❤️ FASO LOVE
 
-![SparkMatch App Showcase](https://via.placeholder.com/1200x400/FF6B8B/FFFFFF?text=SparkMatch+Dating+App)  
-*(Replace with actual screenshots/video of your app in action)*
+**Rencontres authentiques au Burkina Faso.**
+Application de rencontre **strictement réservée aux adultes (18+)**, pensée pour le contexte burkinabè : français d'abord, Mobile Money, faible consommation de données, sécurité et modération au premier plan.
 
-## 🚀 Get Started in Minutes
-
-### Prerequisites Checklist
-- ✔️ Flutter SDK (v3.13.0+)
-- ✔️ Dart (v3.1.0+)
-- ✔️ Python 3.9+
-- ✔️ PostgreSQL (for backend)
-
-### One-Command Setup (Frontend)
-```bash
-git clone https://github.com/yourusername/sparkmatch.git && \
-cd sparkmatch/flutter_app && \
-flutter pub get && \
-flutter run
-```
-
-### Backend Made Simple
-```bash
-cd sparkmatch/fastapi_backend
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# Quick Configuration
-cp .env.example .env  # Update with your DB credentials
-pip install -r requirements.txt
-alembic upgrade head
-uvicorn main:app --reload
-```
-
-## ✨ Why SparkMatch Stands Out
-
-### Open-Source Core
-- 🆓 Free to use and modify (MIT Licensed)
-- 📱 Production-ready Flutter UI
-- 🔄 Working FastAPI backend
-- 🧩 Perfect starter kit for developers
-
-### Commercial-Grade Upgrades Available
-| Feature               | Community Edition | Enterprise Edition |
-|-----------------------|-------------------|--------------------|
-| Matching Algorithm    | Basic             | AI-Powered         |
-| User Database         | Mock Data         | Real Users         |
-| Messaging             | Basic             | Read Receipts + Typing Indicators |
-| Media                 | Photos Only       | Video Profiles + Stories |
-| Infrastructure        | Local             | Cloud Scalable     |
-| Admin Tools           | None              | Advanced Analytics |
-
-## 🖼️ App Screenshots Gallery
-
-<div align="center">
-
-### ✨ Core Features Showcase
-
-| Discover Profiles | Smart Matching | Explore |
-|-------------------|---------------|----------------|
-| <img src="https://github.com/user-attachments/assets/2754ad2a-d44e-4897-9222-5b9e1fd8ef73" width="100%" alt="Discover potential matches with swipe interface"/> | <img src="https://github.com/user-attachments/assets/d61b4496-9989-4668-a0d0-bc575aae3c11" width="100%" alt="AI-powered matching algorithm"/> | <img src="https://github.com/user-attachments/assets/f2a9944c-c970-4d5c-beee-d483aadde15c" width="100%" alt="Instant messaging with read receipts"/> |
-
-### ⚙️ User Experience
-
-| Profile Management | Messanging | Settings |
-|--------------------|----------|------------------|
-| <img src="https://github.com/user-attachments/assets/39ac8aca-c7c8-4dab-933b-977d2c3c25fb" width="100%" alt="Complete profile customization"/> | <img src="https://github.com/user-attachments/assets/348be8ae-9656-4b30-b06e-9e902f0b0472" width="100%" alt="App settings and preferences"/> | <img src="https://github.com/user-attachments/assets/191e6dd8-9e3d-4227-9c86-2e61386d0a56" width="100%" alt="Premium subscription options"/> |
-
-</div>
-
-<details>
-
-1. **Discover Screen**  
-   ![Full Discover](https://github.com/user-attachments/assets/2754ad2a-d44e-4897-9222-5b9e1fd8ef73)
-
-2. **Matching Interface**  
-   ![Full Match](https://github.com/user-attachments/assets/d61b4496-9989-4668-a0d0-bc575aae3c11)
-
-3. **Chat Conversation**  
-   ![Full Chat](https://github.com/user-attachments/assets/f2a9944c-c970-4d5c-beee-d483aadde15c)
-
-4. **Profile Editor**  
-   ![Full Profile](https://github.com/user-attachments/assets/39ac8aca-c7c8-4dab-933b-977d2c3c25fb)
-
-5. **Settings Panel**  
-   ![Full Settings](https://github.com/user-attachments/assets/348be8ae-9656-4b30-b06e-9e902f0b0472)
-
-6. **Premium Features**  
-   ![Full Premium](https://github.com/user-attachments/assets/191e6dd8-9e3d-4227-9c86-2e61386d0a56)
-</details>
-
-## 🛠️ Built With Confidence
-
-**Frontend Power**:
-```yaml
-dependencies:
-  flutter_bloc: ^8.1.3    # State management
-  cached_network_image: ^3.3.0  # Smooth image loading
-  dio: ^5.3.2             # Robust API calls
-  socket_io_client: ^2.0.3 # Real-time features
-```
-
-**Backend Reliability**:
-```python
-FastAPI==0.95.2       # Lightning-fast API framework
-SQLAlchemy==2.0.20    # Database ORM
-Redis==4.5.5          # Caching & real-time features
-```
-
-## 💼 Turnkey Solutions We Offer
-
-### 🚀 Premium Add-ons
-- 💎 Profile Boost System
-- 🔍 Advanced Search Filters
-- 💌 Icebreaker Suggestions
-
-### 🌐 Enterprise Features
-- 🌍 Multi-language Support
-- 📹 Video Calling
-- 🔒 Identity Verification
-
-### 💰 Monetization Ready
-- 💳 Subscription Management
-- 🎁 In-App Purchases
-- 📢 Ad Integration Framework
-
-## 🔥 Why Partner With Us?
-
-1. **Proven Foundation** - Based on this battle-tested open-source core
-2. **Blazing Performance** - Handles 10,000+ concurrent users
-3. **Custom Everything** - From branding to features
-4. **Ongoing Innovation** - Regular feature updates
-5. **White-Glove Support** - Dedicated technical assistance
-
-## 📜 License & Usage
-
-```text
-MIT License - Free for personal/commercial use
-Commercial licensing available for OEM/white-label solutions
-```
+> ⚠️ **Politique d'âge** : FASO LOVE est interdit aux moins de 18 ans.
+> La date de naissance est **vérifiée côté serveur** à l'inscription ;
+> tout signalement de mineur est traité en priorité.
 
 ---
 
-## 📞 Let's Build Your Dating Platform
+## 📌 État du projet
+
+Ce dépôt est né du projet open-source **SparkMatch** (licence MIT, © 2025
+Harendra Prajapati — voir [LICENSE](LICENSE) et [NOTICE.md](NOTICE.md)).
+L'audit initial a montré que le code d'origine était un **prototype
+d'interface** (85 % de fichiers vides, aucun backend, données factices).
+
+La transformation complète est pilotée par le document :
+➡️ **[docs/PLAN_TRANSFORMATION_FASO_LOVE.md](docs/PLAN_TRANSFORMATION_FASO_LOVE.md)**
+
+| Phase | Contenu | Statut |
+|---|---|---|
+| **0** | Nettoyage & fondations du socle | ✅ **Terminée** |
+| **1** | Backend fondations (FastAPI, PostgreSQL, auth OTP +226, règle 18+) | ✅ **Terminée** |
+| **2** | Profils & médias (photos modérées, géoloc opt-in) | ✅ **Terminée** |
+| **3** | Matching (géolocalisation, likes réciproques, fenêtre match) | ✅ **Terminée** |
+| **4** | Chat temps réel (WebSocket + repli REST bas débit) | ✅ **Terminée** |
+| **5** | Signalement, blocage, back-office admin (API + console web) | ✅ **Terminée** |
+| 6 | Sécurité & conformité (CGU, confidentialité, CIL) | 🟡 En cours |
+| **7** | Monétisation Premium (Mobile Money sandbox certifié) | ✅ **Terminée** |
+| **8** | Notifications (cloche in-app + push FCM-ready) | ✅ **Terminée** |
+| **9** | Sécurité & juridique (audit 0-CVE, durcissement, sauvegardes certifiées, CGU v1.0) | ✅ **Terminée** |
+| **10** | **Livraison finale v1.0** (Docker+compose prod, CI 4 étages, Sentry, health probes, guide stores) | ✅ **Terminée** |
+| 9 | i18n, polish, performances | ⬜ |
+| 10 | Lancement production v1.0 | ⬜ |
+
+### Phase 10 — Livraison finale v1.0.0
+
+- 🐳 **Image prod** `backend/Dockerfile` : utilisateur non-root, migrations
+  Alembic automatiques au démarrage, healthcheck Docker ;
+- ☸ **Pile complète** `infra/docker-compose.prod.yml` : API + PostgreSQL 16
+  + Caddy (TLS auto Let's Encrypt) + service de sauvegarde jetable — un
+  seul `up -d` pour une production pilote ;
+- 🚦 **CI GitHub Actions** (`.github/workflows/ci.yml`) : 4 étages bloquants
+  (pytest 79, pip-audit 0-CVE, syntaxe Dart, E2E fumée 45 sur PG réel) ;
+- 🩺 **Probes** : `/health`, `/health/live`, `/health/ready` (DB join à
+  jour) — docker healthchecks & readiness k8s ;
+- 🕵 **Sentry** optionnel branché par `SENTRY_DSN` (runtime, PII exclues ;
+  l'app fonctionne sans) ;
+- 📦 **Guide de livraison stores** (`docs/LIVRAISON_FINALE.md`) :
+  pré-requis logistique (VM, domaine .bf, PayDunya/Africa's Talking/
+  Firebase), premiers `docker compose up -d`, cron sauvegardes, build et
+  listing Google Play / App Store (justificatif Mobile Money), opérations
+  post-lancement (5 fiches d'incident) ;
+- 🔢 Versions verrouillées : API **1.0.0**, app **1.0.0+1**.
+
+### Phase 9 — Sécurité & juridique
+
+- 🛡 **0 vulnérabilité déployée** : audit `pip-audit` complet → upgrade
+  conjoint + épinglage (`fastapi 0.141.1`, `starlette 1.7.0`, `pillow
+  12.3.0` (19 CVE), `PyJWT 2.15.0` (7 CVE), `python-multipart 0.0.32` (6
+  CVE)), **79/79 tests + E2E 45/45 revers passés après la montée** ;
+- 🔒 **Durcissement** : `/docs`+OpenAPI désactivés en prod, alertes de
+  démarrage si configs DEV oubliées, HSTS prod, `Permissions-Policy`
+  restrictive, `Cache-Control: no-store` sur données sensibles, upload
+  photos à lecture plafonnée (413 sans RAM-bombe) ;
+- 💾 **Sauvegardes certifiées** : `tools_backup_db.py` (dump gzip +
+  manifeste sha256 + rotation) / `tools_restore_db.py` (checksum forcé) /
+  `tools_e2e_backup.py` — certification E2E réelle : témoin créé→supprimé→
+  restauré **avec son profil intact** ✔ ;
+- 📜 **Cadre juridique v1.0** : CGU finales (éligibilité 18+, Premium &
+  droit de rétractation, anti-escroquerie romantique, modération 24-48 h,
+  loi burkinabè + for Ouagadougou) + Politique de confidentialité v1.0
+  (loi 010-2004/AN, CIL, durées justifiées) + Mentions légales + checklist
+  OWASP + **RUNBOOK d'exploitation** (variables prod, cron, incidents
+  OTP/PayDunya/brute force, rotation des secrets) → voir `docs/` ;
+- 📚 Docs : `SECURITY_AUDIT.md`, `SECURITY_CHECKLIST.md`,
+  `RUNBOOK_OPERATIONS.md`, `LICENSES_AUDIT.md` §6.
+
+### Phase 8 — Notifications (cloche + push FCM-ready)
+
+- 🔔 **Cloche in-app persistante** : notifications de match (🎉 les deux
+  membres) et de message (💬 destinataire, aperçu 80 car.) alimentées par
+  les événements métier, **anti-spam par conversation** (deuxième message
+  non lu du même match ne ré-empile pas) ;
+- 📲 **Push FCM-ready** : abstraction prestataire `log` (sandbox,
+  journalisé — parcours igual à la passerelle mock des paiements) /
+  `fcm` (clé serveur Firebase en vault ; jetons invalides purgés
+  automatiquement). Appareils enregistrés via `POST /devices`
+  (idempotent, ré-attribution lors d'un changement de compte sur le même
+  téléphone, désenregistrement à la déconnexion) ;
+- 🎚 **Préférences utilisateur** (matchs / messages) côté serveur, jamais
+  côté client ; badge léger `/notifications/count` (60 s de polling
+  doux dans l'app) ;
+- 🗂 RGPD : export inclut la cloche, suppression de compte efface
+  notifications ET appareils ; KPIs admin (notifications envoyées,
+  appareils push) ;
+- 🧪 8 tests notifications (79 au total) + 8 vérifs E2E (45 au total).
+
+### Phase 7 — Monétisation Premium Mobile Money (sandbox certifié)
+
+- 💰 **Offres FCFA** : Premium 7 jours (1 500) / 30 jours (3 500) / 3 mois
+  (9 000) — avantages honnêtes : likes + super likes **illimités**, badge ;
+- 📳 **Parcours Mobile Money réaliste** : checkout idempotent (une seule
+  demande USSD, fenêtre 15 min), statut `pending` → `succeeded` via
+  **webhook signé et idempotent** (rejeus d'agregateur refusés),
+  renouvellement **par cumul de durée** ;
+- 🚦 **Quotas FREEMIUM** : 30 likes + 1 super like/jour gratuit, blocage
+  403 serveur + invitation Premium dans l'app ;
+- 🏦 **Abstraction prestataire** : passerelle `mock` (sandbox certifiée,
+  parcours identique au réel) + squelette **PayDunya** (agrégateur couvrant
+  Orange Money BF + Moov Money BF) prêt à brancher sur clés ;
+- 🧮 **Console admin** : KPIs monétisation (abonnés actifs, paiements
+  confirmés, revenus FCFA) ;
+- 🗂 Conformité : export RGPD étendu (abonnements + transactions),
+  suppression de compte efface aussi la monétisation ;
+- 🧪 10 tests monétisation + 8 vérifs E2E (checkout, idempotence requête &
+  événement, simulation, quotas, empilement).
+
+### Phases 2–5 (backend + app branchée sur l'API réelle)
+
+- 👤 **Profils** : genre/orientation/ville/bio/centres d'intérêt, géolocalisation
+  **opt-in** (seules les distances sont affichées, jamais les coordonnées) ;
+- 📸 **Photos** : pipeline Pillow (validation, ≤1600 px, **EXIF/GPS supprimés**,
+  quota 6) + **file de modération** (pending/approved/rejected) ;
+- 🧭 **Découverte géolocalisée** : haversine, orientation réciproque, filtres
+  âge/distance, anti-revue, ex-bloqués exclus ;
+- 💞 **Matchs réciproques** (like ↔ like) avec fenêtre 🎉 côté app ;
+- 💬 **Chat temps réel** WebSocket (`message`/`typing`/`read`) + historique REST,
+  accusés de lecture ✓✓, indicateur de frappe, **repli REST** bas débit ;
+- 🛡 **Sécurité** : blocage symétrique, signalement (arnaque, mineur…),
+  conseil anti-arnaque permanent dans les conversations ;
+- 🧑‍⚖️ **Back-office `/admin`** : statistiques, file de signalements + résolution,
+  gestion des utilisateurs (désactivation immédiate), modération photos ;
+- 🗂 **Conformité** : suppression de compte intégrale depuis l'app +
+  export des données (portabilité) ;
+- 📱 **App Flutter branchée** : connexion OTP réelle (numéro → code → 18+),
+  découvrir/explorer/matcher/discuter sur l'API, repli hors-ligne maquette ;
+- 🧪 **79 tests pytest** + **45 vérifications E2E boîte noire** (HTTP+WS réels
+  sur PostgreSQL) — 100 % vertes ;
+- 🌱 Seed de démonstration burkinabè (`backend/tools_seed_demo.py`).
+
+### Ce que la Phase 1 a fait
+
+- 🏗 **Backend FastAPI complet** dans [`backend/`](backend/README.md) :
+  inscription/connexion par **numéro +226 + code OTP SMS**, **vérification
+  d'âge 18+ côté serveur**, sessions JWT access/refresh avec **rotation et
+  révocation** (détection de réutilisation), limitation de débit (anti-spam
+  OTP), PostgreSQL + **migrations Alembic** versionnées ;
+- 🧪 **36 tests pytest** (100 % verts) : flux OTP complet, règle 18+,
+  normalisation des numéros burkinabè, rotation/révocation des jetons, JWT ;
+- ✅ Vérifié de bout en bout sur **vrai PostgreSQL** (`backend/tools_pgserver_check.py`)
+  + serveur de dev clé-en-main (`backend/tools_run_dev_api.py` → API + `/docs`) ;
+- 🐳 Docker Compose dev (PostgreSQL 16 + API) + CI : job backend (pytest)
+  ajouté à côté du job Flutter.
+
+### Ce que la Phase 0 a fait
+
+- 🗑 Suppression de **108 fichiers vides** et du squelette parasite
+  « HP Medics » (marketplace de médicaments) laissé par l'auteur initial ;
+- 🔴 Suppression des **photos de personnes réelles** et des URLs Unsplash
+  utilisées comme faux profils (risque juridique) — remplacées par des
+  **avatars génériques locaux** (silhouettes neutres générées par
+  `tools/generate_placeholders.py`) ;
+- 🎨 Rebranding complet : nom, palette (terracotta/doré/vert Burkina),
+  `bf.fasolove.app`, interface **en français**, distances **en kilomètres** ;
+- 🧪 Remplacement du test « compteur » par défaut (en échec) par un vrai
+  test de fumée + CI GitHub Actions (`flutter analyze` + `flutter test`) ;
+- 📜 Ajout de `NOTICE.md` (crédits MIT conservés) et audit des licences
+  (`docs/LICENSES_AUDIT.md`).
+
+## 🚀 Démarrer
+
+### Backend (prérequis : Python 3.11+)
+
+```bash
+cd backend
+python3 -m venv .venv && ./.venv/bin/pip install -r requirements.txt -r requirements-dev.txt
+./.venv/bin/python tools_run_dev_api.py   # PostgreSQL local + migrations + seed démo + API :8000
+```
+
+- Documentation interactive : **http://localhost:8000/docs**
+- Comptes de démonstration (OTP affiché en mode démo) :
+  `+22670000001` … `+22670000008`, admin `+22670000099`
+- Match prêt à l'emploi : Kadiatou (+22670000001) ↔ Idrissa (+22670000005)
+- Tests : `./.venv/bin/pytest -q` (79 tests) · E2E boîte noire :
+  `./.venv/bin/python tools_e2e_full.py` (45 vérifications)
+
+### Application Flutter (prérequis : Flutter 3.x stable)
+
+```bash
+flutter pub get
+# Émulateur Android : l'API locale est jointe via 10.0.2.2 (défaut)
+flutter run
+# Autre cible / serveur distant :
+flutter run --dart-define=API_URL=http://VOTRE_API:8000
+```
+
+### Console d'administration (Flutter Web)
+
+```bash
+flutter pub get
+flutter run -d chrome -t lib/main_admin.dart --dart-define=API_URL=http://localhost:8000
+# build production : flutter build web -t lib/main_admin.dart --dart-define=API_URL=...
+```
+
+Connexion avec le compte admin seed `+22670000099` (OTP démo).
+4 panneaux : KPIs temps réel, file de **signalements** (arnaques/mineurs en
+tête), gestion des **utilisateurs** (désactivation immédiate), **modération
+des photos**. Double garde : OTP + rôle `admin` attribué côté serveur.
+Le client HTTP est multi-plateforme (`dart:io` mobile · XHR web).
 
 
-## 💼 Hire Me & Support My Work
+## 🏗️ Architecture (cible)
 
-### 🤝 Available for Projects
-I'm open to **Flutter development**, **API integrations**, and **consulting work**.
+- **App** : Flutter (iOS/Android) — clean architecture, migration vers
+  BLoC planifiée (Phase 1) ;
+- **Backend** : FastAPI + PostgreSQL (+ PostGIS en phase avancée) — opérationnel Phases 1–5 ;
+- **Admin** : Flutter Web (Phase 5) ;
+- **Infra** : Docker, CI GitHub Actions.
 
-📱 **Phone/WhatsApp**: [+91 7991327022](https://wa.me/917991327022)  
-📧 **Email**: [harendraprajapati72@gmail.com](mailto:harendraprajapati72@gmail.com)  
-🌐 **Website**: [nayaproyog.com](https://nayaproyog.com)  
-💻 **Portfolio**: [github.helloharendra.io](https://github.helloharendra.io)  
+## 🤝 Sécurité & signalement
 
-### ☕ Buy Me a Coffee
-If you appreciate my work, consider supporting me:
+Signalement et blocage d'utilisateurs (Phase 5), modération des photos,
+conseils anti-arnaque intégrés. Toute vulnérabilité doit être signalée en
+privé avant divulgation publique.
 
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/helloharendra)
+## 📜 Licence & crédits
 
-
-
-
-
+- Code d'origine « SparkMatch » : **MIT**, © 2025 Harendra Prajapati
+  (notices conservées : [LICENSE](LICENSE), [NOTICE.md](NOTICE.md)) ;
+- Modifications FASO LOVE : © 2025 FASO LOVE ;
+- Audit des dépendances et assets : [docs/LICENSES_AUDIT.md](docs/LICENSES_AUDIT.md).

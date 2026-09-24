@@ -1,0 +1,82 @@
+# CI FASO LOVE — vérifications obligatoires avant tout merge (Phase 10).
+# Le pipeline rejette l'intégration si l'un des 4 étages échoue.
+name: CI
+
+on:
+  push:
+    branches: [main, 'arena/**']
+  pull_request:
+
+jobs:
+  backend-tests:
+    name: Backend — pytest (79) + lint de dépendances
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: |
+            backend/requirements.txt
+      - name: Dépendances (prod + tests)
+        working-directory: backend
+        run: |
+          python -m venv .venv
+          ./.venv/bin/pip install -r requirements.txt
+          ./.venv/bin/pip install pytest pytest-asyncio aiosqlite websockets
+      - name: Suite pytest (79 tests attendus — mettre à jour le nom à chaque ajout)
+        working-directory: backend
+        run: ./.venv/bin/python -m pytest -q
+      - name: Migration Alembic no-op (sécurité régression)
+        working-directory: backend
+        run: |
+          ./.venv/bin/pip install pgserver >/dev/null 2>&1 || true
+          ./.venv/bin/python -c "import app.main; app.main.create_app()"
+
+  backend-audit:
+    name: Backend — pip-audit (0 CVE déployée requise)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Installer l'auditeur
+        run: python -m pip install --quiet pip pip-audit
+      - name: Échouer si une vulnérabilité connue touche une dépendance PROD
+        run: pip-audit -r backend/requirements.txt
+
+  dart-syntax:
+    name: Flutter — syntaxe Dart (tree-sitter, 42 fichiers)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Vérifier que tous les .dart se parsent
+        run: |
+          pip install tree-sitter tree-sitter-dart -q
+          python tools/check_dart_syntax.py
+
+  e2e-smoke:
+    name: E2E — boîte noire complète (API réelle + PostgreSQL)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Démarrer l'API sandbox (pgserver embarqué)
+        working-directory: backend
+        run: |
+          python -m venv .venv
+          ./.venv/bin/pip install -r requirements.txt pytest pgserver websockets -q
+          nohup ./.venv/bin/python tools_run_dev_api.py > /tmp/api.log 2>&1 &
+          for i in $(seq 1 40); do
+            curl -sf http://localhost:8000/api/v1/health && break || sleep 2
+          done
+      - name: E2E (45 vérifications attendues — mettre à jour le nom à chaque ajout)
+        working-directory: backend
+        run: ./.venv/bin/python tools_e2e_full.py
+      - name: Log API en cas d'échec
+        if: failure()
+        run: tail -100 /tmp/api.log

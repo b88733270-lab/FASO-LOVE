@@ -1,6 +1,8 @@
+import 'package:faso_love/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// Boutons d'action de la file « Découvrir » : passer / aimer / coup de cœur.
 class ActionButtons extends StatelessWidget {
   final VoidCallback onSwipeLeft;
   final VoidCallback onSwipeRight;
@@ -22,21 +24,24 @@ class ActionButtons extends StatelessWidget {
         children: [
           _buildActionButton(
             icon: FontAwesomeIcons.xmark,
+            tooltip: 'Passer',
             color: Colors.white,
-            backgroundColor: Colors.grey.withOpacity(0.3),
+            backgroundColor: AppColors.pass.withOpacity(0.75),
             onPressed: onSwipeLeft,
           ),
           _buildActionButton(
             icon: FontAwesomeIcons.solidHeart,
+            tooltip: 'Aimer',
             color: Colors.white,
-            backgroundColor: const Color(0xFFFE3C72),
+            backgroundColor: AppColors.like,
             size: 28,
             onPressed: onSwipeRight,
           ),
           _buildActionButton(
             icon: FontAwesomeIcons.solidStar,
+            tooltip: 'Coup de cœur',
             color: Colors.white,
-            backgroundColor: Colors.blueAccent,
+            backgroundColor: AppColors.superLike,
             onPressed: onSuperLike,
           ),
         ],
@@ -46,6 +51,7 @@ class ActionButtons extends StatelessWidget {
 
   Widget _buildActionButton({
     required IconData icon,
+    required String tooltip,
     required Color color,
     required Color backgroundColor,
     double size = 24,
@@ -67,6 +73,7 @@ class ActionButtons extends StatelessWidget {
       ),
       child: IconButton(
         icon: FaIcon(icon, size: size, color: color),
+        tooltip: tooltip,
         onPressed: onPressed,
       ),
     );

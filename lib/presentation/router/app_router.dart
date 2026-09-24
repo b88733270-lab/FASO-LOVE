@@ -1,7 +1,7 @@
-import 'package:dating_app/presentation/screens/discover_screen.dart';
-import 'package:dating_app/presentation/screens/explore_screen.dart';
-import 'package:dating_app/presentation/screens/matches_screen.dart';
-import 'package:dating_app/presentation/screens/profile_screen.dart';
+import 'package:faso_love/presentation/screens/discover_screen.dart';
+import 'package:faso_love/presentation/screens/explore_screen.dart';
+import 'package:faso_love/presentation/screens/matches_screen.dart';
+import 'package:faso_love/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class Routes {

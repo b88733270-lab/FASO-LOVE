@@ -1,0 +1,9 @@
+.venv/
+.pgdata/
+backups/
+media/
+tests/
+tools_*.py
+*.db
+__pycache__/
+.pytest_cache/

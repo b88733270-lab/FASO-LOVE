@@ -1,31 +1,35 @@
-// This is a basic Flutter widget test.
+// Tests de widgets FASO LOVE — démarrage de l'application.
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// Le test « compteur » généré par `flutter create` (et qui était en échec
+// car il testait un compteur inexistant) a été remplacé par ce test de fumée.
 
-import 'package:dating_app/presentation/screens/home_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:faso_love/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:dating_app/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const HomeScreen());
+  testWidgets(
+    'Demarrage : titre FASO LOVE, 4 onglets et navigation vers Matchs',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(const FasoLoveApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      // Laisse s'écouler le chargement simulé des profils (1 s dans
+      // MatchService) puis reconstruit l'arbre de widgets.
+      await tester.pump(const Duration(milliseconds: 1200));
+      await tester.pump();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      // L'onglet Découvrir affiche le titre de l'app.
+      expect(find.text('FASO LOVE'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+      // Les 4 onglets de navigation sont présents.
+      expect(find.text('Découvrir'), findsOneWidget);
+      expect(find.text('Matchs'), findsOneWidget);
+      expect(find.text('Explorer'), findsOneWidget);
+      expect(find.text('Profil'), findsOneWidget);
+
+      // Navigation vers l'onglet Matchs (état vide pour l'instant).
+      await tester.tap(find.text('Matchs'));
+      await tester.pump();
+      expect(find.text('Aucun match pour le moment'), findsOneWidget);
+    },
+  );
 }

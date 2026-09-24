@@ -43,3 +43,27 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# --- FASO LOVE : secrets & environnement ---
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+key.properties
+google-services.json
+GoogleService-Info.plist
+
+# --- Backend (Phase 1) ---
+backend/venv/
+backend/.venv/
+__pycache__/
+
+# --- Phase 1 : environnement backend local ---
+backend/.pgdata/
+backend/*.db
+.coverage
+htmlcov/
+backend/media/
+# Phase 9 : sauvegardes = données clients → JAMAIS versionnées.
+backend/backups/

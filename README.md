@@ -72,7 +72,7 @@ La transformation complète est pilotée par le document :
   export des données (portabilité) ;
 - 📱 **App Flutter branchée** : connexion OTP réelle (numéro → code → 18+),
   découvrir/explorer/matcher/discuter sur l'API, repli hors-ligne maquette ;
-- 🧪 **70 tests pytest** + **37 vérifications E2E boîte noire** (HTTP+WS réels
+- 🧪 **71 tests pytest** + **37 vérifications E2E boîte noire** (HTTP+WS réels
   sur PostgreSQL) — 100 % vertes ;
 - 🌱 Seed de démonstration burkinabè (`backend/tools_seed_demo.py`).
 
@@ -119,7 +119,7 @@ python3 -m venv .venv && ./.venv/bin/pip install -r requirements.txt -r requirem
 - Comptes de démonstration (OTP affiché en mode démo) :
   `+22670000001` … `+22670000008`, admin `+22670000099`
 - Match prêt à l'emploi : Kadiatou (+22670000001) ↔ Idrissa (+22670000005)
-- Tests : `./.venv/bin/pytest -q` (70 tests) · E2E boîte noire :
+- Tests : `./.venv/bin/pytest -q` (71 tests) · E2E boîte noire :
   `./.venv/bin/python tools_e2e_full.py` (37 vérifications)
 
 ### Application Flutter (prérequis : Flutter 3.x stable)

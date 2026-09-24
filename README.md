@@ -26,7 +26,7 @@ La transformation complète est pilotée par le document :
 | **2** | Profils & médias (photos modérées, géoloc opt-in) | ✅ **Terminée** |
 | **3** | Matching (géolocalisation, likes réciproques, fenêtre match) | ✅ **Terminée** |
 | **4** | Chat temps réel (WebSocket + repli REST bas débit) | ✅ **Terminée** |
-| **5** | Signalement, blocage, back-office admin (API) | ✅ **Terminée (API)** |
+| **5** | Signalement, blocage, back-office admin (API + console web) | ✅ **Terminée** |
 | 6 | Sécurité & conformité (CGU, confidentialité, CIL) | 🟡 En cours |
 | 7 | Monétisation Premium (Orange Money / Moov Money) | ⬜ |
 | 8 | Notifications push & engagement | ⬜ |
@@ -110,6 +110,21 @@ flutter pub get
 flutter run
 # Autre cible / serveur distant :
 flutter run --dart-define=API_URL=http://VOTRE_API:8000
+```
+
+### Console d'administration (Flutter Web)
+
+```bash
+flutter pub get
+flutter run -d chrome -t lib/main_admin.dart --dart-define=API_URL=http://localhost:8000
+# build production : flutter build web -t lib/main_admin.dart --dart-define=API_URL=...
+```
+
+Connexion avec le compte admin seed `+22670000099` (OTP démo).
+4 panneaux : KPIs temps réel, file de **signalements** (arnaques/mineurs en
+tête), gestion des **utilisateurs** (désactivation immédiate), **modération
+des photos**. Double garde : OTP + rôle `admin` attribué côté serveur.
+Le client HTTP est multi-plateforme (`dart:io` mobile · XHR web).
 
 
 ## 🏗️ Architecture (cible)

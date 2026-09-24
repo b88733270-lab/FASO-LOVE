@@ -66,6 +66,10 @@ def create_app() -> FastAPI:
         response.headers.setdefault("X-Content-Type-Options", "nosniff")
         response.headers.setdefault("X-Frame-Options", "DENY")
         response.headers.setdefault("Referrer-Policy", "no-referrer")
+        # Images publiques (profils) : lecture cross-origin autorisée pour
+        # les clients CanvasKit de Flutter Web (console admin).
+        if request.url.path.startswith("/media/"):
+            response.headers.setdefault("Access-Control-Allow-Origin", "*")
         return response
 
     # Fichiers médias (photos compressées sans EXIF).

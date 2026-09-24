@@ -31,6 +31,7 @@ class AuthSession extends ChangeNotifier {
   /// Profil de l'utilisateur connecté (récupéré via GET /auth/me).
   String? myUserId;
   String? myPhone;
+  String? role;
 
   String get etape => _etape;
   bool get occupe => _occupe;
@@ -38,6 +39,10 @@ class AuthSession extends ChangeNotifier {
   String get telephone => _telephone;
   bool get estConnecte => _etape == _etapeConnecte && _api.hasSession;
   bool get attendDateNaissance => _etape == _etapeNaissance;
+
+  /// Rôle « admin » (attribué UNIQUEMENT côté serveur, jamais par l'app) —
+  /// conditionne l'accès à la console d'administration Flutter Web.
+  bool get estAdmin => role == 'admin';
 
   void _definir({String? etape, String? erreur, bool? occupe}) {
     if (etape != null) _etape = etape;
@@ -106,6 +111,7 @@ class AuthSession extends ChangeNotifier {
     final moi = await _api.getJson('/auth/me');
     myUserId = moi['id'] as String?;
     myPhone = moi['phone_e164'] as String?;
+    role = moi['role'] as String?;
   }
 
   /// Déconnexion propre : révocation côté serveur.
@@ -118,6 +124,7 @@ class AuthSession extends ChangeNotifier {
     _api.clearTokens();
     myUserId = null;
     myPhone = null;
+    role = null;
     codeDev = null;
     _code = '';
     _definir(etape: _etapeNumero, erreur: null, occupe: false);

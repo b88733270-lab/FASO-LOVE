@@ -1,93 +1,84 @@
+/// Chaînes de caractères FASO LOVE (français — langue par défaut).
+///
+/// L'internationalisation complète (fr + mooré + dioula + fulfuldé) est
+/// prévue en phase 9 ; ce fichier centralise déjà les textes visibles.
 class AppStrings {
-  // App Info
-  static const String appName = "HP Medics";
-  static const String appTagline = "Your Medical Solution";
+  // Application
+  static const String appName = 'FASO LOVE';
+  static const String appTagline = 'Rencontres authentiques au Burkina Faso';
 
-  // Auth
-  static const String login = "Login";
-  static const String register = "Register";
-  static const String email = "Email";
-  static const String password = "Password";
-  static const String confirmPassword = "Confirm Password";
-  static const String forgotPassword = "Forgot Password?";
-  static const String dontHaveAccount = "Don't have an account? ";
-  static const String alreadyHaveAccount = "Already have an account? ";
-  static const String orLoginWith = "Or login with";
-  static const String orRegisterWith = "Or register with";
+  // Navigation
+  static const String tabDiscover = 'Découvrir';
+  static const String tabMatches = 'Matchs';
+  static const String tabExplore = 'Explorer';
+  static const String tabProfile = 'Profil';
 
-  // Roles
-  static const String superAdmin = "Super Admin";
-  static const String vendor = "Vendor";
-  static const String user = "User";
+  // Authentification
+  static const String login = 'Connexion';
+  static const String register = 'Inscription';
+  static const String phoneNumber = 'Numéro de téléphone';
+  static const String otpCode = 'Code de vérification';
+  static const String email = 'E-mail';
+  static const String password = 'Mot de passe';
+  static const String confirmPassword = 'Confirmer le mot de passe';
+  static const String forgotPassword = 'Mot de passe oublié ?';
+  static const String dontHaveAccount = 'Pas encore de compte ? ';
+  static const String alreadyHaveAccount = 'Déjà un compte ? ';
+  static const String logout = 'Se déconnecter';
 
-  // Validation Messages
-  static const String emailRequired = "Email is required";
-  static const String invalidEmail = "Please enter a valid email";
-  static const String passwordRequired = "Password is required";
+  // Messages de validation
+  static const String phoneRequired = 'Le numéro de téléphone est requis';
+  static const String invalidPhone = 'Veuillez saisir un numéro valide';
+  static const String otpRequired = 'Le code de vérification est requis';
+  static const String emailRequired = 'L’e-mail est requis';
+  static const String invalidEmail = 'Veuillez saisir un e-mail valide';
+  static const String passwordRequired = 'Le mot de passe est requis';
   static const String passwordMinLength =
-      "Password must be at least 6 characters";
-  static const String passwordsNotMatch = "Passwords do not match";
+      'Le mot de passe doit contenir au moins 8 caractères';
+  static const String passwordsNotMatch =
+      'Les mots de passe ne correspondent pas';
+  static const String ageRestriction =
+      'Vous devez avoir au moins 18 ans pour utiliser FASO LOVE';
 
-  // Vendor Specific
-  static const String vendorRegistration = "Vendor Registration";
-  static const String vendorApprovalPending =
-      "Your registration is pending approval";
-  static const String addShop = "Add Shop";
-  static const String shopName = "Shop Name";
-  static const String shopAddress = "Shop Address";
-  static const String shopPhone = "Shop Phone";
-  static const String addMedicineCategory = "Add Medicine Category";
-  static const String addMedicine = "Add Medicine";
-  static const String medicineName = "Medicine Name";
-  static const String medicinePrice = "Price";
-  static const String medicineDescription = "Description";
-  static const String medicineCategory = "Category";
-  static const String medicineStock = "Stock Quantity";
+  // Découverte
+  static const String likeAction = 'Aimer';
+  static const String passAction = 'Passer';
+  static const String superLikeAction = 'Coup de cœur';
+  static const String noMoreProfiles =
+      'Plus de profils à découvrir pour le moment';
 
-  // User Specific
-  static const String searchMedicine = "Search Medicine...";
-  static const String addToCart = "Add to Cart";
-  static const String viewCart = "View Cart";
-  static const String checkout = "Checkout";
-  static const String placeOrder = "Place Order";
-  static const String orderSummary = "Order Summary";
-  static const String totalAmount = "Total Amount";
-  static const String advancePayment = "Advance Payment (10%)";
-  static const String remainingPayment = "Remaining Payment";
-  static const String paymentMethods = "Payment Methods";
-  static const String onlinePayment = "Online Payment";
-  static const String cashOnDelivery = "Cash on Delivery";
-  static const String orderPlaced = "Order Placed Successfully!";
+  // Sécurité & modération
+  static const String report = 'Signaler';
+  static const String block = 'Bloquer';
+  static const String unblock = 'Débloquer';
+  static const String reportThanks =
+      'Merci pour votre signalement. Notre équipe va l’examiner.';
+  static const String safetyTip =
+      'Ne partagez jamais d’argent ni vos informations personnelles avec un inconnu.';
 
-  // Order Status
-  static const String orderPending = "Pending";
-  static const String orderProcessing = "Processing";
-  static const String orderReady = "Ready for Pickup";
-  static const String orderCompleted = "Completed";
-  static const String orderCancelled = "Cancelled";
+  // Premium
+  static const String premium = 'FASO LOVE Premium';
+  static const String subscribe = 'S’abonner';
+  static const String unlimitedLikes = 'Likes illimités';
+  static const String seeWhoLikesYou = 'Voir qui vous a aimé';
 
-  // Common
-  static const String submit = "Submit";
-  static const String cancel = "Cancel";
-  static const String save = "Save";
-  static const String edit = "Edit";
-  static const String delete = "Delete";
-  static const String view = "View";
-  static const String back = "Back";
-  static const String next = "Next";
-  static const String loading = "Loading...";
-  static const String noData = "No data available";
-  static const String errorOccurred = "An error occurred";
-  static const String tryAgain = "Try Again";
-  static const String success = "Success";
+  // Commun
+  static const String send = 'Envoyer';
+  static const String submit = 'Valider';
+  static const String cancel = 'Annuler';
+  static const String save = 'Enregistrer';
+  static const String edit = 'Modifier';
+  static const String delete = 'Supprimer';
+  static const String back = 'Retour';
+  static const String next = 'Suivant';
+  static const String loading = 'Chargement…';
+  static const String noData = 'Aucune donnée disponible';
+  static const String errorOccurred = 'Une erreur est survenue';
+  static const String tryAgain = 'Réessayer';
+  static const String success = 'Succès';
 
-  // Notifications
-  static const String newOrderNotification = "You have a new order!";
-  static const String orderStatusUpdate = "Order status updated";
-
-  // Admin Specific
-  static const String userManagement = "User Management";
-  static const String vendorApprovals = "Vendor Approvals";
-  static const String approve = "Approve";
-  static const String reject = "Reject";
+  // Légal
+  static const String termsOfUse = 'Conditions d’utilisation';
+  static const String privacyPolicy = 'Politique de confidentialité';
+  static const String deleteAccount = 'Supprimer mon compte';
 }

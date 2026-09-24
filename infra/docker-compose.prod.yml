@@ -1,0 +1,103 @@
+# ============================================================================
+# FASO LOVE — déploiement production (Phase 10)
+#
+#   cp infra/.env.example infra/.env       # puis complétez les secrets
+#   docker compose -f infra/docker-compose.prod.yml --env-file infra/.env up -d
+#
+# Scheduler recommandé sur l'hôte :
+#   25 3 * * * docker compose -f infra/docker-compose.prod.yml --env-file infra/.env exec -T backup ./docker-backup.sh
+# ============================================================================
+name: fasolove
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fasolove
+      POSTGRES_USER: fasolove
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks: [fasolove]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fasolove -d fasolove"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ../backend
+    image: fasolove-api:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+asyncpg://fasolove:${DB_PASSWORD}@db:5432/fasolove
+      ENV: prod
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      SMS_PROVIDER: ${SMS_PROVIDER}
+      AFRICASTALKING_USERNAME: ${AFRICASTALKING_USERNAME:-}
+      AFRICASTALKING_API_KEY: ${AFRICASTALKING_API_KEY:-}
+      PAYMENTS_PROVIDER: ${PAYMENTS_PROVIDER:-paydunya}
+      PAYDUNYA_MASTER_KEY: ${PAYDUNYA_MASTER_KEY:-}
+      PAYDUNYA_PRIVATE_KEY: ${PAYDUNYA_PRIVATE_KEY:-}
+      PAYDUNYA_PUBLIC_KEY: ${PAYDUNYA_PUBLIC_KEY:-}
+      PAYDUNYA_MODE: ${PAYDUNYA_MODE:-live}
+      PAYMENTS_SIMULATION_ENABLED: "false"
+      PAYMENTS_WEBHOOK_PUBLIC_URL: ${PAYMENTS_WEBHOOK_PUBLIC_URL:-}
+      PUSH_PROVIDER: ${PUSH_PROVIDER:-fcm}
+      FCM_SERVER_KEY: ${FCM_SERVER_KEY:-}
+      SENTRY_DSN: ${SENTRY_DSN:-}
+      MEDIA_DIR: /app/media
+      UVICORN_WORKERS: ${UVICORN_WORKERS:-2}
+      API_V1_PREFIX: /api/v1
+    volumes:
+      - media:/app/media
+    networks: [fasolove]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/ready', timeout=4)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on: [api]
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddydata:/data
+      - caddyconfig:/config
+    networks: [fasolove]
+
+  # Sauvegarde quotidienne déclenchée par cron hôte (container jetable).
+  backup:
+    image: postgres:16-alpine
+    profiles: ["backup"]
+    volumes:
+      - backups:/backups
+      - ./docker-backup.sh:/docker-backup.sh:ro
+    environment:
+      PGHOST: db
+      PGDATABASE: fasolove
+      PGUSER: fasolove
+      PGPASSWORD: ${DB_PASSWORD}
+      BACKUP_KEEP: ${BACKUP_KEEP:-30}
+    networks: [fasolove]
+
+networks:
+  fasolove:
+
+volumes:
+  pgdata:
+  media:
+  backups:
+  caddydata:
+  caddyconfig:

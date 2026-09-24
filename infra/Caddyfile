@@ -1,0 +1,35 @@
+# FASO LOVE — reverse proxy TLS automatique (Caddy 2)
+#
+# Remplacez api.fasolove.bf par votre domaine réel. Caddy gère et renouvelle
+# automatiquement les certificats (Let's Encrypt ACME).
+# La limitation de débit reste assurée côté application (slowapi, Phase 6/9).
+
+api.fasolove.bf {
+    encode gzip zstd
+
+    reverse_proxy api:8000 {
+        header_up Host {host}
+        header_up X-Forwarded-Proto https
+    }
+
+    header {
+        # Sécurité redondante (l'API les émet aussi — the cas où un écho
+        # court-circuite le proxy).
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "no-referrer"
+        -Server
+    }
+
+    log {
+        output file /data/access.log {
+            roll_size 10mb
+            roll_keep 7
+        }
+    }
+}
+
+# Interdire l'accès direct par IP sans SNI correct.
+:80 {
+    abort
+}

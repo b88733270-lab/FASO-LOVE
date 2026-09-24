@@ -1,6 +1,8 @@
-import 'package:dating_app/data/models/users/user_model.dart';
+import 'package:faso_love/core/utils/helpers/profile_image.dart';
+import 'package:faso_love/data/models/users/user_model.dart';
 import 'package:flutter/material.dart';
 
+/// Carte de profil utilisée dans la file « Découvrir ».
 class ProfileCard extends StatelessWidget {
   final User user;
 
@@ -14,7 +16,7 @@ class ProfileCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
-            image: NetworkImage(user.photoUrl),
+            image: profileImageProvider(user.photoUrl),
             fit: BoxFit.cover,
           ),
           boxShadow: [
@@ -58,7 +60,7 @@ class ProfileCard extends StatelessWidget {
                         size: 16, color: Colors.white70),
                     const SizedBox(width: 4),
                     Text(
-                      '${user.distance} miles away',
+                      'À ${user.distance.toStringAsFixed(1)} km',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white70,

@@ -1,5 +1,6 @@
-import 'package:dating_app/core/constants/app_colors.dart';
-import 'package:dating_app/data/models/users/user_model.dart';
+import 'package:faso_love/core/constants/app_colors.dart';
+import 'package:faso_love/core/utils/helpers/profile_image.dart';
+import 'package:faso_love/data/models/users/user_model.dart';
 import 'package:flutter/material.dart';
 
 
@@ -16,7 +17,7 @@ class ProfileHeader extends StatelessWidget {
           height: 300,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(user.photoUrl),
+              image: profileImageProvider(user.photoUrl),
               fit: BoxFit.cover,
             ),
           ),
@@ -54,7 +55,7 @@ class ProfileHeader extends StatelessWidget {
                   const Icon(Icons.location_on, size: 16, color: Colors.white70),
                   const SizedBox(width: 4),
                   Text(
-                    '${user.distance} miles away',
+                    'À ${user.distance.toStringAsFixed(1)} km',
                     style: const TextStyle(
                       color: Colors.white70,
                     ),

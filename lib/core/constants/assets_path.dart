@@ -1,23 +1,24 @@
+/// Chemins des assets embarqués FASO LOVE.
+///
+/// Les avatars génériques sont des silhouettes neutres générées en interne
+/// par `tools/generate_placeholders.py` — volontairement sans visage
+/// identifiable. AUCUNE photo de personne réelle ne doit être embarquée
+/// sans autorisation écrite (droit à l'image).
 class AssetsPath {
-  // Images
-  static const String logo = 'assets/images/logo.png';
-  static const String placeholder = 'assets/images/placeholder.jpg';
-  static const String medicinePlaceholder =
-      'assets/images/medicine_placeholder.png';
-  static const String shopPlaceholder = 'assets/images/shop_placeholder.png';
+  static const String avatar1 = 'assets/placeholders/avatar_1.png';
+  static const String avatar2 = 'assets/placeholders/avatar_2.png';
+  static const String avatar3 = 'assets/placeholders/avatar_3.png';
+  static const String avatar4 = 'assets/placeholders/avatar_4.png';
+  static const String avatar5 = 'assets/placeholders/avatar_5.png';
+  static const String avatar6 = 'assets/placeholders/avatar_6.png';
 
-  // Icons
-  static const String home = 'assets/icons/home.png';
-  static const String cart = 'assets/icons/cart.png';
-  static const String orders = 'assets/icons/orders.png';
-  static const String profile = 'assets/icons/profile.png';
-  static const String search = 'assets/icons/search.png';
-  static const String notification = 'assets/icons/notification.png';
-  static const String menu = 'assets/icons/menu.png';
-  static const String back = 'assets/icons/back.png';
-
-  // Lottie
-  static const String loading = 'assets/lottie/loading.json';
-  static const String success = 'assets/lottie/success.json';
-  static const String empty = 'assets/lottie/empty.json';
+  /// Avatars de démonstration utilisés avant le branchement de l'API (phase 3).
+  static const List<String> placeholderAvatars = <String>[
+    avatar1,
+    avatar2,
+    avatar3,
+    avatar4,
+    avatar5,
+    avatar6,
+  ];
 }

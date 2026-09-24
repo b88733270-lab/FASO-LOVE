@@ -1,48 +1,49 @@
 import 'package:flutter/material.dart';
 
+/// Palette FASO LOVE — identité propre au produit (ne pas réutiliser le
+/// rose « SparkMatch » / #FE3C72 du projet d'origine).
+///
+/// Inspirée du Burkina Faso : terracotta, doré de la savane, vert profond.
 class AppColors {
-  // Primary Colors
-  static const Color primary = Color(0xFF2E7D32);
-  static const Color primaryDark = Color(0xFF005005);
-  static const Color primaryLight = Color(0xFF60AD5E);
-  
-  // Secondary Colors
-  static const Color secondary = Color(0xFF0288D1);
-  static const Color secondaryDark = Color(0xFF005B9F);
-  static const Color secondaryLight = Color(0xFF5EB8FF);
-  
-  // Status Colors
-  static const Color success = Color(0xFF4CAF50);
-  static const Color warning = Color(0xFFFFC107);
-  static const Color error = Color(0xFFF44336);
+  // Couleurs principales
+  static const Color primary = Color(0xFFC65D3B); // Terracotta
+  static const Color primaryDark = Color(0xFF8F3A1F);
+  static const Color primaryLight = Color(0xFFE8A08A);
+
+  // Couleurs secondaires
+  static const Color secondary = Color(0xFFD9A21B); // Doré savane
+  static const Color secondaryDark = Color(0xFFA87B0A);
+  static const Color secondaryLight = Color(0xFFF2CE73);
+
+  // Statuts
+  static const Color success = Color(0xFF1E7B3C); // Vert Burkina
+  static const Color warning = Color(0xFFE0A400);
+  static const Color error = Color(0xFFD32F2F);
   static const Color info = Color(0xFF2196F3);
-  
-  // Background & Surface
+
+  // Arrière-plans & surfaces
   static const Color background = Color(0xFFFAFAFA);
   static const Color surface = Color(0xFFFFFFFF);
   static const Color onSurface = Color(0xFF212121);
-  
-  // Text Colors
+
+  // Textes
   static const Color textPrimary = Color(0xFF212121);
   static const Color textSecondary = Color(0xFF757575);
   static const Color textDisabled = Color(0xFF9E9E9E);
   static const Color textOnPrimary = Color(0xFFFFFFFF);
-  static const Color textOnSecondary = Color(0xFFFFFFFF);
-  
-  // Border Colors
+  static const Color textOnSecondary = Color(0xFF212121);
+
+  // Bordures
   static const Color borderLight = Color(0xFFE0E0E0);
   static const Color borderDark = Color(0xFFBDBDBD);
-  
-  // Other Colors
+
+  // Divers
   static const Color disabled = Color(0xFFE0E0E0);
   static const Color divider = Color(0xFFEEEEEE);
   static const Color shadow = Color(0x1A000000);
-  
-  // App Specific Colors
-  static const Color medicineCard = Color(0xFFE8F5E9);
-  static const Color vendorCard = Color(0xFFE3F2FD);
-  static const Color orderPending = Color(0xFFFFF8E1);
-  static const Color orderProcessing = Color(0xFFE1F5FE);
-  static const Color orderCompleted = Color(0xFFE8F5E9);
-  static const Color orderCancelled = Color(0xFFFFEBEE);
+
+  // Actions de découverte (swipe)
+  static const Color like = Color(0xFF1E7B3C);
+  static const Color pass = Color(0xFFD32F2F);
+  static const Color superLike = Color(0xFFD9A21B);
 }
